@@ -1,0 +1,23 @@
+{
+  "name": "myazon",
+  "version": "1.0.0",
+  "description": "",
+  "main": "product.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/annievallone/myazon.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/annievallone/myazon/issues"
+  },
+  "homepage": "https://github.com/annievallone/myazon#readme",
+  "dependencies": {
+    "inquirer": "^6.0.0",
+    "mysql": "^2.16.0"
+  }
+}
