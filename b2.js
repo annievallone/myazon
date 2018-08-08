@@ -1,8 +1,6 @@
 var mysql = require("mysql");
 var inquirer = require("inquirer");
 var purchase = {buyID:"", buyQty:"", stock:""}
-// var maxID = [];
-// var inputValid = false;
 var id = "";
 var qty = ""; 
 
@@ -30,33 +28,35 @@ function buying() {
         type: "input",
         message: "What is the ID of the item you wish to buy?"
     }).then(function(answer){
-        console.log(answer)
-        connection.query("SELECT COUNT(item_id) AS NumberOfIDs FROM products where ?;", {item_id: answer}, function(err, res){
-            id = answer;
-            console.log(res)
-            if (res > 0 ) {
+        console.log(answer.selectionID)
+        connection.query("SELECT COUNT(item_id) AS NumberOfIDs FROM products where ?;", {item_id: answer.selectionID}, function(err, res){
+            id = parseInt(answer.selectionID);
+            console.log(typeof id)
+            if (id > 0 ) {
                 inquirer.prompt({
                     name: "selectionQty",
                     type: "input",
                     message: "How many would you like?"
             })
+            // console.log(answer)
+            inventoryCheck()
         }
         else {
             console.log("Sorry that is not a valid ID")
         }
     })
-}).then(function(answer){
-    inventoryCheck()
-    qty = answer
-})
-}
+    })}
+
 
 function inventoryCheck(){
     connection.query("SELECT COUNT(stock_quantity) AS NumberOfStock FROM products where ?;", {item_id: id}, function(err,res){
+    }).then(function(res){
+        console.log("inv")
         if (res > qty) {
+            console.log("test")
             reduceStock();
-        }
-    })
+    }
+})
 }
 function reduceStock(){
     var newStock = purchase.stock - purchase.buyQty
